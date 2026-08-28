@@ -1,0 +1,228 @@
+/* =========================
+CONFIGURACIÓN GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #070503;
+    background: linear-gradient(180deg,rgba(7, 5, 3, 1) 0%, rgba(11, 42, 70, 1) 5%, rgba(12, 55, 93, 1) 13%, rgba(48, 117, 146, 1) 44%, rgba(100, 146, 178, 1) 82%, rgba(177, 203, 224, 1) 97%);    color: #222;
+    min-height: 100vh;
+}
+
+
+.site-header {
+    width: 100%;
+    padding: 30px 30px 35px;
+        
+    background-image: /* linear-gradient(
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.45)
+        ), */url("./img/Wassily_Kandinsky_-_Winter_I_Kochel_-_\(MeisterDrucke-697431\).jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 35%;
+
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.site-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    color: #f7f7f5;
+}
+.nombre_tesis {
+    font-size: 20px;
+    color: #b9b9b9;
+}
+.site-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    color: #ececec;
+}
+
+.site-header p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #e9e9e9;
+}
+
+
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 45px 30px 80px;
+}
+
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+
+
+
+.gallery-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-3px);
+}
+
+
+
+.image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    background: rgb(232, 232, 230, 0.45);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .image-wrapper img {
+    transform: scale(1.03);
+}
+
+
+.work-number {
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 13px;
+
+    color: #444;
+
+    padding-top: 9px;
+
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+
+
+.site-footer {
+    text-align: center;
+    padding: 25px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #050505;
+}
+
+
+/* =========================
+GLIGHTBOX
+========================= */
+
+/*
+Ajustamos el texto inferior
+de la imagen ampliada.
+*/
+
+.gslide-description {
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.gslide-title {
+    font-size: 18px;
+}
+
+
+/* =========================
+TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .gallery {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .gallery-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+
+/* =========================
+CELULAR
+========================= */
+
+@media (max-width: 650px) {
+
+    .site-header {
+        padding: 30px 20px 25px;
+    }
+
+    .site-header h1 {
+        font-size: 26px;
+    }
+
+    .gallery-container {
+        padding: 25px 15px 50px;
+    }
+
+    .gallery {
+        /*
+        Dos columnas en celular.
+        */
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 18px 12px;
+    }
+
+    .work-number {
+        font-size: 12px;
+        padding-top: 7px;
+    }
+}
+
+
+/* =========================
+CELULARES MUY PEQUEÑOS
+========================= */
+
+@media (max-width: 380px) {
+
+    .gallery {
+        gap: 12px 8px;
+    }
+}
