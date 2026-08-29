@@ -29,8 +29,8 @@ body {
     width: 100%;
     max-height: 110px;
     padding: 5px 30px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.25),
-            rgba(0, 0, 0, 0.25)), url("./img/header.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35),
+            rgba(0, 0, 0, 0.45)), url("./img/header.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 35%;
@@ -54,17 +54,20 @@ body {
 .site-header h1 {
     display: inline;
     padding: 2px 4px;
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 40px;
+    font-weight: 1000;
     margin-bottom: 8px;
     letter-spacing: 1px;
-    color: #112546;
+    color: #052b69;
+    -webkit-text-stroke-width: 0.001px;
+    -webkit-text-stroke-color: #a0c5ff;
     
 }
 
 .nombre_tesis {
     font-size: 20px;
-    color: #141414;
+    color: #d6c8c8;
+    -webkit-text-stroke-width: 0;
 }
 
 .site-header h2 {
@@ -73,7 +76,7 @@ body {
     font-size: 22px;
     font-weight: normal;
     margin-bottom: 8px;
-    color: #363434;
+    color: #d6c8c8;
 }
 
 
@@ -204,14 +207,20 @@ body {
 
     .site-header {
         padding: 30px 20px 25px;
+        max-height: 120px;
+        display: flex;
+        justify-content: center;
     }
 
-    .site-header h1 {
-        font-size: 26px;
+    .nombre_tesis{
+        display: none;
     }
-
+    .site-header h2 {
+        display: none;
+    }
     .gallery-container {
         padding: 25px 15px 50px;
+        top: 120px;
     }
 
     .gallery {
@@ -226,10 +235,13 @@ body {
 }
 
 
-@media (max-width: 380px) {
+@media (max-width: 390px) {
 
     .gallery {
         gap: 12px 8px;
+    }
+    .site-header h1 {
+        font-size: 36px;
     }
 }
 
