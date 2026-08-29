@@ -1,43 +1,27 @@
 const lightbox = GLightbox({
-
     selector: ".glightbox",
-
-    /*
-        Permite navegar entre las 31 obras.
-    */
     loop: true,
-
-    /*
-        Animación al cambiar de obra.
-    */
-    transition: "slide",
-
-    /*
-        Permite cerrar haciendo click
-        fuera de la imagen.
-    */
-    closeOnOutsideClick: true,
-
-    /*
-        Zoom de las imágenes.
-    */
-    zoomable: true,
-
-    /*
-        En dispositivos táctiles permite
-        gestos como deslizar.
-    */
     touchNavigation: true,
-
-    /*
-        Navegación con teclado.
-    */
     keyboardNavigation: true,
+    zoomable: true,
+    closeOnOutsideClick: true
+});
 
-    /*
-        Pantalla completa.
-    */
-    openEffect: "fade",
-    closeEffect: "fade",
-    slideEffect: "slide"
+lightbox.on("slide_after_load", ({ slide }) => {
+
+    const element = slide.trigger;
+
+    const title = element.dataset.title;
+    const technique = element.dataset.technique;
+    const author = element.dataset.description;
+
+    const titleElement = slide.slideNode.querySelector(".gslide-title");
+    const descriptionElement = slide.slideNode.querySelector(".gslide-description");
+
+    titleElement.innerHTML = title;
+
+    descriptionElement.innerHTML = `
+        <div class="technique">${technique}</div>
+        <div class="author">${author}</div>
+    `;
 });
