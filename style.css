@@ -20,10 +20,8 @@ html {
 body {
     font-family: 'fuenteDK';
     background: #0D0708;
-    background: linear-gradient(180deg,rgba(13, 7, 8, 1) 0%, rgba(5, 24, 46, 1) 44%, rgba(34, 60, 79, 1) 100%);
+    background: linear-gradient(180deg, rgba(13, 7, 8, 1) 0%, rgba(5, 24, 46, 1) 44%, rgba(34, 60, 79, 1) 100%);
 }
-
-
 
 .site-header {
     width: 100%;
@@ -50,7 +48,6 @@ body {
     padding: 10px;
 }
 
-
 .site-header h1 {
     display: inline;
     padding: 2px 4px;
@@ -61,7 +58,6 @@ body {
     color: #052b69;
     -webkit-text-stroke-width: 0.001px;
     -webkit-text-stroke-color: #a0c5ff;
-    
 }
 
 .nombre_tesis {
@@ -79,27 +75,22 @@ body {
     color: #d6c8c8;
 }
 
-
-
 .gallery-container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 45px 30px 80px;
-    display: flex;
+    min-height: 100vh;
+    margin: 100px auto 0;
+    padding: 45px 30px 0;
+    display: flow-root;
     position: relative;
-    top: 100px;
     z-index: 50;
+    overflow: hidden;
 }
-
 
 .gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
 }
-
-
-
 
 .gallery-item {
     display: block;
@@ -114,8 +105,6 @@ body {
 .gallery-item:hover {
     transform: translateY(-3px);
 }
-
-
 
 .image-wrapper {
     width: 100%;
@@ -140,7 +129,6 @@ body {
     transform: scale(1.03);
 }
 
-
 .work-number {
     font-size: 18px;
     color: #eebebe;
@@ -149,18 +137,22 @@ body {
     text-align: center;
 }
 
+/* --- GLightbox: título y descripción ---
+   Estos selectores ya son lo bastante específicos (2 clases combinadas)
+   como para ganarle a las reglas base de glightbox.min.css sin !important,
+   dado que style.css se carga después en el <head>. */
 
-.glightbox-container .gslide-title {
+.glightbox-clean .gslide-title.gslide-title {
     color: #28012b;
     font-family: "Hedvig Letters Serif", serif;
-    font-size: 22px;
+    font-size: clamp(14px, 5vw, 22px);
     font-weight: 600;
     line-height: 1.2;
     padding: 0;
     margin: 0;
 }
 
-.glightbox-clean .gdesc-inner{
+.glightbox-clean .gdesc-inner {
     margin: 0;
     padding: 10px 20px;
     background-image: linear-gradient(rgba(138, 138, 138, 0.35),
@@ -168,18 +160,20 @@ body {
     background-repeat: no-repeat;
     background-position: 12%;
     background-size: cover;
-
 }
-.gslide-description {
+
+.glightbox-clean .gslide-description.gslide-description {
     font-family: "Hedvig Letters Serif", serif;
-    font-size: 28px;
+    font-size: clamp(16px, 6vw, 28px);
     font-weight: 800;
     color: #1c3763;
     padding-top: 0;
     margin-top: 0;
-    
 }
 
+.glightbox-clean .gslide-desc {
+    color: #052b69;
+}
 
 .site-footer {
     text-align: center;
@@ -190,7 +184,6 @@ body {
 }
 
 @media (max-width: 900px) {
-
     .gallery {
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
@@ -202,9 +195,73 @@ body {
     }
 }
 
+/* --- GLightbox: layout mobile ---
+   Mismo criterio: .gslide-media.gslide-image y .gslide-description.description-bottom
+   ya matchean/superan la especificidad de las reglas propias de glightbox. */
+
+@media (max-width: 768px) {
+
+    .glightbox-clean .gslide.gslide {
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow: hidden;
+    }
+    .glightbox-clean [id^="gSlideDesc_"].gslide-desc {
+    color: #052b69;
+}
+
+    .glightbox-clean .gslide-inner-content.gslide-inner-content,
+    .glightbox-clean .ginner-container.ginner-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100dvh;
+        max-height: 100dvh;
+        width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .glightbox-clean .gslide-media.gslide-image {
+        flex: 0 1 auto;
+        min-height: 0;
+        max-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .glightbox-clean .gslide-media.gslide-image img.gslide-image {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    .glightbox-clean .gslide-description.description-bottom {
+        position: static;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        padding: 0;
+        flex: 0 0 auto;
+        width: 100%;
+        max-height: 40%;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .gdesc-inner {
+        text-align: center;
+        margin: 0 auto;
+        padding: 10px 16px;
+    }
+}
 
 @media (max-width: 650px) {
-
     .site-header {
         padding: 30px 20px 25px;
         max-height: 120px;
@@ -212,15 +269,17 @@ body {
         justify-content: center;
     }
 
-    .nombre_tesis{
+    .nombre_tesis {
         display: none;
     }
+
     .site-header h2 {
         display: none;
     }
+
     .gallery-container {
         padding: 25px 15px 50px;
-        top: 120px;
+        margin-top: 120px;
     }
 
     .gallery {
@@ -229,19 +288,34 @@ body {
     }
 
     .work-number {
-        font-size: 12px;
-        padding-top: 7px;
+        font-size: 20px;
+        padding-top: 5px;
     }
 }
 
-
 @media (max-width: 390px) {
-
     .gallery {
         gap: 12px 8px;
     }
+
     .site-header h1 {
         font-size: 36px;
     }
 }
 
+@media (max-width: 361px) {
+    .site-header h1 {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 346px) {
+    .site-header h1 {
+        font-size: 34px;
+        text-align: center;
+    }
+
+    .site-header {
+        max-height: 135px;
+    }
+}
