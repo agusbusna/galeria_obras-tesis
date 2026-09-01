@@ -260,6 +260,11 @@ body {
         padding: 10px 16px;
     }
 }
+.glightbox-container.is-zoomed-active .gslide-description {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
 
 @media (max-width: 650px) {
     .site-header {

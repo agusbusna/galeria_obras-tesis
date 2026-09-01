@@ -25,3 +25,29 @@ lightbox.on("slide_after_load", ({ slide }) => {
         <div class="author">${author}</div>
     `;
 });
+
+lightbox.on("open", () => {
+    const container = document.querySelector(".glightbox-container");
+    if (!container) return;
+
+    const zoomObserver = new MutationObserver(() => {
+        const isZoomed = !!container.querySelector(".zoomed");
+        container.classList.toggle("is-zoomed-active", isZoomed);
+    });
+
+    zoomObserver.observe(container, {
+        attributes: true,
+        attributeFilter: ["class"],
+        subtree: true
+    });
+
+    container._zoomObserver = zoomObserver;
+});
+
+lightbox.on("close", () => {
+    const container = document.querySelector(".glightbox-container");
+    if (container && container._zoomObserver) {
+        container._zoomObserver.disconnect();
+        delete container._zoomObserver;
+    }
+});
