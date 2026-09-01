@@ -26,18 +26,27 @@ lightbox.on("slide_after_load", ({ slide }) => {
     `;
 });
 
+// Ocultar la descripción mientras la imagen está en modo zoom (funciona en desktop y mobile)
 lightbox.on("open", () => {
     const container = document.querySelector(".glightbox-container");
     if (!container) return;
 
-    const zoomObserver = new MutationObserver(() => {
-        const isZoomed = !!container.querySelector(".zoomed");
-        container.classList.toggle("is-zoomed-active", isZoomed);
-    });
+    const checkZoom = () => {
+        const zoomedByClass = !!container.querySelector(".zoomed");
 
+        const zoomedByTransform = [...container.querySelectorAll(".gslide-image img")].some((img) => {
+            const t = img.style.transform || "";
+            const match = t.match(/scale\(([\d.]+)/);
+            return match && parseFloat(match[1]) > 1.01;
+        });
+
+        container.classList.toggle("is-zoomed-active", zoomedByClass || zoomedByTransform);
+    };
+
+    const zoomObserver = new MutationObserver(checkZoom);
     zoomObserver.observe(container, {
         attributes: true,
-        attributeFilter: ["class"],
+        attributeFilter: ["class", "style"],
         subtree: true
     });
 
