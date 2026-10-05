@@ -53,9 +53,6 @@ const DOM = {
     modalYear: document.getElementById("modal-year"),
     modalTechnique: document.getElementById("modal-technique"),
     modalMovement: document.getElementById("modal-movement"),
-    modalDescription: document.getElementById("modal-description"),
-    modalCitation: document.getElementById("modal-citation"),
-    btnCopyCitation: document.getElementById("btn-copy-citation"),
     modalFavBtn: document.getElementById("modal-fav-btn"),
 
     // UI Utilities
@@ -238,7 +235,7 @@ function renderGalleryGrid(works) {
                         <a href="${w.image}" class="btn-card-action btn-card-lightbox glightbox" data-gallery="tesis-gallery-btn" 
                            data-title="<strong>${w.id}. ${w.title} (${w.year})</strong>" 
                            data-description="<em>${w.author}</em> — ${w.technique}">
-                            🔍 HD
+                            Ver
                         </a>
                         <button class="btn-card-action btn-card-detail" data-id="${w.id}">
                             📖 Ficha
@@ -334,6 +331,14 @@ function updateActiveChips() {
 // ==========================================================================
 // Modal de Detalle Académico
 // ==========================================================================
+// Actualiza el aspecto del botón de favoritos del modal (solo ícono)
+function updateModalFavButton(isFav) {
+    DOM.modalFavBtn.classList.toggle("is-fav", isFav);
+    const label = isFav ? "Guardada en Favoritos" : "Guardar en Favoritos";
+    DOM.modalFavBtn.title = label;
+    DOM.modalFavBtn.setAttribute("aria-label", label);
+}
+
 function openDetailModal(workId) {
     const work = state.works.find(w => w.id === Number(workId));
     if (!work) return;
@@ -350,17 +355,10 @@ function openDetailModal(workId) {
     DOM.modalYear.textContent = work.year;
     DOM.modalTechnique.textContent = work.technique;
     DOM.modalMovement.textContent = work.movement;
-    DOM.modalDescription.textContent = work.description;
-
-    // Generar cita bibliográfica académica
-    const citation = `${work.author} (${work.year}). *${work.title}* [${work.technique}]. Referenciada en: Busnadiego, A. (Tesis: Imagen-esperanza, ${work.thesisRef}).`;
-    DOM.modalCitation.innerHTML = `${work.author} (${work.year}). <em>${work.title}</em> [${work.technique}]. Referenciada en: Busnadiego, A. (Tesis: <em>Imagen-esperanza</em>, ${work.thesisRef}).`;
-    DOM.btnCopyCitation.dataset.citation = `${work.author} (${work.year}). ${work.title} [${work.technique}]. Referenciada en: Busnadiego, A. (Tesis: Imagen-esperanza, ${work.thesisRef}).`;
 
     // Estado de favorito en el modal
     const isFav = state.favorites.has(work.id);
-    DOM.modalFavBtn.classList.toggle("is-fav", isFav);
-    DOM.modalFavBtn.querySelector(".fav-text").textContent = isFav ? "Guardada en Favoritos" : "Guardar en Favoritos";
+    updateModalFavButton(isFav);
 
     DOM.detailModal.classList.add("is-open");
     DOM.detailModal.setAttribute("aria-hidden", "false");
@@ -391,9 +389,7 @@ function toggleFavorite(workId) {
 
     // Actualizar botón de modal si está abierto
     if (state.activeModalWorkId === id) {
-        const isFav = state.favorites.has(id);
-        DOM.modalFavBtn.classList.toggle("is-fav", isFav);
-        DOM.modalFavBtn.querySelector(".fav-text").textContent = isFav ? "Guardada en Favoritos" : "Guardar en Favoritos";
+        updateModalFavButton(state.favorites.has(id));
     }
 
     render();
@@ -539,14 +535,6 @@ function setupEventListeners() {
         }
     });
 
-    DOM.btnCopyCitation.addEventListener("click", () => {
-        const text = DOM.btnCopyCitation.dataset.citation;
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast("📋 Cita académica copiada");
-            });
-        }
-    });
 
     // Keyboard Shortcuts
     document.addEventListener("keydown", (e) => {
