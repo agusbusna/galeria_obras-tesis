@@ -1,0 +1,16 @@
+{
+  "name": "proyecto-obras-tesis",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Galería interactiva y catálogo de obras de arte referenciadas en la tesis 'Imagen-esperanza' de Agustín Busnadiego",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
